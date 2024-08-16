@@ -32,5 +32,28 @@ class Welcome extends CI_Controller {
 		$this->load->view('templates/footer');
 
 	}
+
+	public function create_user() {
+		$this->form_validation->set_rules('firstName', 'First Name', 'required');
+		$this->form_validation->set_rules('middleName', 'Middle Name', 'required');
+		$this->form_validation->set_rules('lastName', 'Last Name', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		
+		if ($this->form_validation->run()) {
+			$data = [
+				'firstName' => $this->input->post('firstName'),
+				'middleName' => $this->input->post('middleName'),
+				'lastName' => $this->input->post('lastName'),
+				'email' => $this->input->post('email')
+			];
+
+			$this->load->model('StudentModel');
+			$this->StudentModel->student_data($data);
+			redirect(base_url('dokie'));
+		} else {
+			$this->maxine();
+			
+		};
+	}
 	
 }

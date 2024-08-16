@@ -54,3 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route ['dokie'] = 'Welcome/maxine';
+$route ['create-user'] = 'Welcome/create_user';

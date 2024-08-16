@@ -9,7 +9,7 @@
 						</h5>
 					</div>
 					<div class = "card-body">
-                    <form action="submit_form.php" method="post">
+                    <form action="<?php echo base_url('create-user')?>" method="POST">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
                                 <input type="text" class="form-control" id="firstName" name="firstName" required>
