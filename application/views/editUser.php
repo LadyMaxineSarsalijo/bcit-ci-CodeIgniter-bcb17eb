@@ -12,8 +12,7 @@
                     <form action="<?php echo base_url('create-user')?>" method="POST">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName">
-                                <small><?php echo form_error('firstName', '<div class="error">', '</div>'); ?></small>
+                                <input type="text" class="form-control" id="firstName" name="firstName" required>
                             </div>
                             <div class="form-group">
                                 <label for="middleName">Middle Name</label>
@@ -21,11 +20,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName">
+                                <input type="text" class="form-control" id="lastName" name="lastName" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <button type="submit" class="btn btn-primary mt-2">Submit</button>
                         </form>

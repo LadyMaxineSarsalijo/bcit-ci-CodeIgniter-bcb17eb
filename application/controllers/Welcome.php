@@ -22,8 +22,11 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->database();
 		$this->load->view('templates/header');
-		$this->load->view('welcome_message');
 		$this->load->view('templates/header');
+
+		$this->load->model('StudentModel', 'stud');
+		$results = $this->stud->retrieveStudentData();
+		$this->load->view('welcome_message', ['result' => $results]);
 	}
 
 	public function maxine() {
@@ -34,12 +37,8 @@ class Welcome extends CI_Controller {
 	}
 
 	public function create_user() {
-		$this->form_validation->set_rules('firstName', 'First Name', 'required');
-		$this->form_validation->set_rules('middleName', 'Middle Name', 'required');
-		$this->form_validation->set_rules('lastName', 'Last Name', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
-		
-		if ($this->form_validation->run()) {
+		$this->load->library('form_validation');
+
 			$data = [
 				'firstName' => $this->input->post('firstName'),
 				'middleName' => $this->input->post('middleName'),
@@ -48,12 +47,23 @@ class Welcome extends CI_Controller {
 			];
 
 			$this->load->model('StudentModel');
-			$this->StudentModel->student_data($data);
-			redirect(base_url('dokie'));
-		} else {
-			$this->maxine();
-			
-		};
+        if ($this->StudentModel->student_data($data)) {
+            redirect()->back(); 
+           
+        } else {
+			$this->load->view('addUser');
+		}
+    }
+
+	//Edit user by id
+	public function editUserPage($id){
+		$this->load->view('templates/header');
+		$this->load->view('templates/footer');
+	
+		$this->load->model('StudentModel', 'stud');
+		$data['users'] = $this->stud->editUser($id);
+		$this->load->view('editUser', $data);
+
 	}
 	
 }
