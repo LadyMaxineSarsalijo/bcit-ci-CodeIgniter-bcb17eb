@@ -10,7 +10,21 @@
 						</h5>
 					</div>
 					<div class = "card-body">
-					<table class="table table-bordered table-striped">
+						<form action="<?php echo base_url() ?>" method="GET">
+							<div class="row g-3 align-items-center mb-2">
+								<div class="col-auto">
+									<label for="search_check" class="col-form-label">Search</label>
+								</div>
+								<div class="col-auto">
+								<input type="text" placeholder="Search here.." id="search_text" name="search_text" class="form-control" aria-describedby="passwordHelpInline">
+								</div>
+								<div class="col-auto">
+									<input type="submit" class="btn btn-primary" value="Search">
+								</div>
+							</div>
+						</form>
+						
+					<table id="datatable" class="table table-bordered table-striped">
 						<thead class="flex">
 							<tr>
 								<th>First Name</th>
@@ -32,10 +46,10 @@
 							<td><?php echo htmlentities($row->lastName)?></td>
 							<td><?php echo htmlentities($row->email)?></td>
 							<td class="flex" style="display: flex; gap: 10px;">
-								<form action="<?php echo base_url('edit-user-page')?>">
+								<form action="<?php echo base_url('edit-user-page/'.$row->id)?>">
 									<button type="submit" class= "btn btn-success">Edit</button>
 								</form>
-								<form action="">
+								<form action="<?php echo base_url('delete-user/'.$row->id)?>">
 									<button type="submit" class= "btn btn-danger">Delete</button>
 								</form>
 							</td>
@@ -60,5 +74,6 @@
 
 		</div>
 	</div>
+	
     <style>
 	</style>

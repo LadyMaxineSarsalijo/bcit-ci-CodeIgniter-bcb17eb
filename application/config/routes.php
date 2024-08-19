@@ -56,3 +56,6 @@ $route['translate_uri_dashes'] = FALSE;
 $route ['dokie'] = 'Welcome/maxine';
 $route ['create-user'] = 'Welcome/create_user';
 $route ['edit-user-page/(:any)'] = 'Welcome/editUserPage/$1';
+$route ['update-user/(:any)'] = 'Welcome/updateUser/$1';
+$route ['delete-user/(:any)'] = 'Welcome/deleteUser/$1';
+

@@ -13,7 +13,6 @@
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
                                 <input type="text" class="form-control" id="firstName" name="firstName">
-                                <small><?php echo form_error('firstName', '<div class="error">', '</div>'); ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="middleName">Middle Name</label>

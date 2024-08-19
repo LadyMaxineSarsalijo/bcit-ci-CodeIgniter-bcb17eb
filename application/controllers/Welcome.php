@@ -22,11 +22,12 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->database();
 		$this->load->view('templates/header');
-		$this->load->view('templates/header');
+		$this->load->view('templates/footer');
 
 		$this->load->model('StudentModel', 'stud');
 		$results = $this->stud->retrieveStudentData();
 		$this->load->view('welcome_message', ['result' => $results]);
+
 	}
 
 	public function maxine() {
@@ -37,8 +38,12 @@ class Welcome extends CI_Controller {
 	}
 
 	public function create_user() {
-		$this->load->library('form_validation');
+		$this->form_validation->set_rules('firstName', 'First Name', 'required');
+		$this->form_validation->set_rules('middleName', 'Middle Name', 'required');
+		$this->form_validation->set_rules('lastName', 'Last Name', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
 
+		if ($this->form_validation->run()) {
 			$data = [
 				'firstName' => $this->input->post('firstName'),
 				'middleName' => $this->input->post('middleName'),
@@ -47,23 +52,43 @@ class Welcome extends CI_Controller {
 			];
 
 			$this->load->model('StudentModel');
-        if ($this->StudentModel->student_data($data)) {
-            redirect()->back(); 
-           
-        } else {
-			$this->load->view('addUser');
-		}
+			$this->StudentModel->student_data($data);
+			redirect(base_url('welcome'));
+		} else {
+			$this->maxine();
+
+		};
     }
 
 	//Edit user by id
 	public function editUserPage($id){
 		$this->load->view('templates/header');
-		$this->load->view('templates/footer');
-	
-		$this->load->model('StudentModel', 'stud');
+
+		$this->load->model("StudentModel", 'stud');
 		$data['users'] = $this->stud->editUser($id);
+
+		$this->load->view('templates/footer');
 		$this->load->view('editUser', $data);
 
+	}
+
+	public function updateUser($id){
+		$data = [
+			'firstName' => $this->input->post('firstName'),
+			'middleName' => $this->input->post('middleName'),
+			'lastName' => $this->input->post('lastName'),
+			'email' => $this->input->post('email')
+		];
+		$this->load->model("StudentModel");
+		$this->StudentModel->edit($data, $id);
+
+		redirect(base_url('welcome'));
+	}
+
+	public function deleteUser($id){
+		$this->load->model("StudentModel");
+		$this->StudentModel->delete($id);
+		redirect(base_url('welcome'));
 	}
 	
 }
